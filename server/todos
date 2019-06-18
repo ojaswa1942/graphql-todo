@@ -1,0 +1,14 @@
+{
+	"_id":"5cfe87bb3e8f4a0875a36905",
+	"email":"prem@chmod.exe",
+	"name":"Prem Chopra",
+	"hash":"$2b$10$.UBikE928yFgg.pCstA9hueDclz2W9zz1cFTzRAFdk4GRDICRvJTa",
+	"todos":[
+		{
+			"id":"5cfe87bb3e8f4a0875a36905-4243",
+			"title":"Create UI",
+			"isComplete":false,
+			"timestamp":1560185188336
+		}
+	]
+}
