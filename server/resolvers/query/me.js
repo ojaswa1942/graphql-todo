@@ -1,10 +1,15 @@
-const me = (_, __, context) => {
-	const db = context.db;
-	
-	return db.collection('todos').find().toArray()
-	.then(res => {
-		return 'Helllooo';
-	})
+const { AuthenticationError } = require('apollo-server');
+
+const me = (_, __, {db, email, isAuthenticated, id}) => {
+	if(isAuthenticated){
+		return {
+			id,
+			email
+		};
+	}
+	else{
+		throw new AuthenticationError('User Authentication required');
+	}
 }
 
 module.exports = me;

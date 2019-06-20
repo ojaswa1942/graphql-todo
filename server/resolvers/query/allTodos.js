@@ -1,6 +1,6 @@
-const allTodos = (_, __, context) => {
+const allTodos = (parent, __, context) => {
 	const db = context.db;
-	
+	console.log(parent);
 	return db.collection('todos').aggregate([
 		{
 			"$unwind": "$todos"
@@ -10,7 +10,7 @@ const allTodos = (_, __, context) => {
 		title: "$todos.title",
 		date: "$todos.date",
 		isCompleted: "$todos.isCompleted",
-		by: {
+		user: {
 			name: "$name",
 			email: "$email"
 		}

@@ -3,7 +3,8 @@ const typeDefs = gql`
 	type Query {
 	  todos: [Todo]!
 	  allTodos: [Todo!]
-	  me: String
+	  me: User
+	  hello: String!
 	}
 
 	type Todo {
@@ -11,15 +12,14 @@ const typeDefs = gql`
 	  title: String
 	  date: String
 	  isCompleted: Boolean!
-	  by: User
+	  user: User
 	}
 
 	type User {
 		id: ID!
 		name: Name
 		email: String
-		password: String
-		todos: [Todo]!
+		todos: [Todo!]
 	}
 
 	type Name {
@@ -35,6 +35,9 @@ const typeDefs = gql`
 		toggleCompletion(todoId: ID!): EditMutationResponse
 
 		login(email: String!, password: String!):LoginResponse
+
+		signup(firstName: String!, lastName: String!, email: String!, password: String!): LoginResponse
+
 	}
 
 	type EditMutationResponse {
@@ -46,7 +49,8 @@ const typeDefs = gql`
 	type LoginResponse {
 		success: Boolean!
 		message: String
-		token: String!
+		token: String
+		user: User
 	}
 `;
 
