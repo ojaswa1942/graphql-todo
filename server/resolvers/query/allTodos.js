@@ -1,18 +1,19 @@
-const allTodos = (parent, __, context) => {
-	const db = context.db;
-	console.log(parent);
+const allTodos = (parent, __, {db}) => {
 	return db.collection('todos').aggregate([
 		{
 			"$unwind": "$todos"
 		}
 	])
 	.project({
+		_id: 0,
+		id: "$todos._id",
 		title: "$todos.title",
 		date: "$todos.date",
 		isCompleted: "$todos.isCompleted",
 		user: {
-			name: "$name",
-			email: "$email"
+			id: "$_id",
+			email: "$email",
+			name: "$name"
 		}
 	})
 	.toArray()

@@ -1,6 +1,9 @@
 const me = require('./resolvers/query/me');
 const allTodos = require('./resolvers/query/allTodos');
 const handleLogin = require('./resolvers/mutations/login');
+const addTodo = require('./resolvers/mutations/addTodo');
+const toggleCompletion = require('./resolvers/mutations/toggleCompletion');
+const deleteTodo = require('./resolvers/mutations/deleteTodo');
 const handleRegister = require('./resolvers/mutations/register');
 
 const resolvers = {
@@ -11,7 +14,10 @@ const resolvers = {
 	},
 	Mutation: {
 		login: handleLogin,
-		signup: handleRegister
+		signup: handleRegister,
+		addTodo,
+		deleteTodo,
+		toggleCompletion
 	},
 	User: {
 		name: ({email}, _, { db }) => {
@@ -28,17 +34,30 @@ const resolvers = {
 			.project({ _id: 0, todos: 1 })
 			.toArray()
 			.then(res => {
-				if(res.length)
+				if(res.length){
 					return res[0].todos
+				}
 			})
 		}
 	},
 	Todo: {
-		user: (_, __, {email, id}) => {
-			return {
-				email,
-				id
-			}
+		user: ({user}, __, {email, id}) => {
+			if(email && id)
+				return {
+					email,
+					id
+				}
+			else if(user.email && user.id)
+				return {
+					email: user.email,
+					id: user.id
+				}
+
+		},
+		isCompleted: ({isCompleted}) => {
+			if(isCompleted)
+				return true;
+			else return false;
 		}
 	}
 }

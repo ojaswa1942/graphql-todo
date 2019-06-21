@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server');
 const typeDefs = gql`
 	type Query {
-	  todos: [Todo]!
+	  todos: [Todo!]
 	  allTodos: [Todo!]
 	  me: User
 	  hello: String!
@@ -43,7 +43,7 @@ const typeDefs = gql`
 	type EditMutationResponse {
 		success: Boolean!
 		message: String
-		todos: [Todo]!
+		user: User!
 	}
 
 	type LoginResponse {
